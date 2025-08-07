@@ -39,30 +39,33 @@ const App: React.FC = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Todo List</h1>
+    <>
+      <h1 style={{ textAlign: "center" }}>hello</h1>
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <h1>Todo List</h1>
 
-      {/* Input field to enter new todo */}
-      <input
-        type="text"
-        value={text}
-        onChange={(event) => setText(event.target.value)} // Update input value
-        placeholder="Add a new task"
-      />
+        {/* Input field to enter new todo */}
+        <input
+          type="text"
+          value={text}
+          onChange={(event) => setText(event.target.value)} // Update input value
+          placeholder="Add a new task"
+        />
 
-      <button onClick={addTodo}>Add</button>
+        <button onClick={addTodo}>Add</button>
 
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            toggleTodo={toggleTodo}
-            deleteTodo={deleteTodo}
-          />
-        ))}
-      </ul>
-    </div>
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          {todos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              toggleTodo={toggleTodo}
+              deleteTodo={deleteTodo}
+            />
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 
