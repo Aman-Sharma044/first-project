@@ -1,72 +1,130 @@
-import { useState } from "react";
-import TodoItem from "./components/TodoList.tsx";
+import React, { useState, useCallback } from "react";
 
-interface Todo {
-  id: number;
-  text: string;
-  done: boolean;
+interface p {
+  defaultLength?: number;
+  includeNumbers?: boolean;
+  includeChars?: boolean;
 }
 
-const App: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+const Pass: React.FC<p> = ({
+  defaultLength = 8,
+  includeNumbers = true,
+  includeChars = true,
+}) => {
+  // Strictly typed state
+  const [length, setLength] = useState<number>(defaultLength);
+  const [numberAllow, setNumberAllow] = useState<boolean>(includeNumbers);
+  const [charAllow, setCharAllow] = useState<boolean>(includeChars);
+  const [password, setPassword] = useState<string>("");
 
-  const [text, setText] = useState("");
+  // Password Generator
+  const passwordGenerator = useCallback((): void => {
+    let p = "";
+    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-  const addTodo = () => {
-    if (text.trim() === "") return;
+    if (numberAllow) str += "0123456789";
+    if (charAllow) str += "!@#$%^&*()_+-=[]{}|;:'";
 
-    const newTodo: Todo = {
-      id: Date.now(),
-      text,
-      done: false,
-    };
+    for (let i = 0; i < length; i++) {
+      const index = Math.floor(Math.random() * str.length);
+      p += str.charAt(index);
+    }
 
-    setTodos([...todos, newTodo]);
-    setText("");
-  };
-
-  const toggleTodo = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, done: !todo.done } : todo
-      )
-    );
-  };
-
-  const deleteTodo = (id: number) => {
-    // Filter out the todo with the matching id
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+    setPassword(p);
+  }, [length, numberAllow, charAllow]);
 
   return (
-    <>
-      <h1 style={{ textAlign: "center" }}>hello</h1>
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <h1>Todo List</h1>
+    <div
+      style={{
+        background: "#f4f4f4",
+        padding: "20px",
+        borderRadius: "10px",
+        width: "350px",
+        margin: "30px auto",
+        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+        textAlign: "center",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <h2>Password Generator</h2>
 
-        {/* Input field to enter new todo */}
-        <input
-          type="text"
-          value={text}
-          onChange={(event) => setText(event.target.value)} // Update input value
-          placeholder="Add a new task"
-        />
-
-        <button onClick={addTodo}>Add</button>
-
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {todos.map((todo) => (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              toggleTodo={toggleTodo}
-              deleteTodo={deleteTodo}
-            />
-          ))}
-        </ul>
+      {/* Length Input */}
+      <div style={{ marginBottom: "10px" }}>
+        <label>
+          Length:{" "}
+          <input
+            type="number"
+            value={length}
+            onChange={(e) => setLength(Number(e.target.value))}
+            min={4}
+            max={32}
+            style={{
+              padding: "5px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              width: "60px",
+            }}
+          />
+        </label>
       </div>
-    </>
+
+      {/* Number Allow */}
+      <div style={{ marginBottom: "10px" }}>
+        <label>
+          <input
+            type="checkbox"
+            checked={numberAllow}
+            onChange={() => setNumberAllow((prev) => !prev)}
+          />{" "}
+          Include Numbers
+        </label>
+      </div>
+
+      {/* Special Char Allow */}
+      <div style={{ marginBottom: "10px" }}>
+        <label>
+          <input
+            type="checkbox"
+            checked={charAllow}
+            onChange={() => setCharAllow((prev) => !prev)}
+          />{" "}
+          Include Special Characters
+        </label>
+      </div>
+
+      {/* Generate Button */}
+      <button
+        onClick={passwordGenerator}
+        style={{
+          background: "#4CAF50",
+          color: "#fff",
+          padding: "10px 15px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Generate Password
+      </button>
+
+      {/* Password Display */}
+      {password && (
+        <div
+          style={{
+            marginTop: "15px",
+            padding: "10px",
+            background: "#fff",
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            fontWeight: "bold",
+            wordBreak: "break-all",
+          }}
+        >
+          {password}
+        </div>
+      )}
+    </div>
   );
 };
 
-export default App;
+export default Pass;
