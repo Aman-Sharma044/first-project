@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from "react";
 
-interface pass {
+interface p {
   defaultLength?: number;
   includeNumbers?: boolean;
   includeChars?: boolean;
 }
 
-const Pass: React.FC<pass> = ({
+const Pass: React.FC<p> = ({
   defaultLength = 8,
   includeNumbers = true,
   includeChars = true,
