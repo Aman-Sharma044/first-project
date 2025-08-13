@@ -6,7 +6,7 @@ export default function App() {
   return (
     <BrowserRouter>
       {/* Navbar */}
-      <nav style={{ display: "flex", gap: "1rem", marginBottom: "20px" }}>
+      <nav style={{ display: "flex", gap: "1rem", marginBottom: "21px" }}>
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
       </nav>
