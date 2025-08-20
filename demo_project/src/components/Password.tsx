@@ -23,7 +23,7 @@ const Password: React.FC = () => {
     <div
       style={{
         maxWidth: "400px",
-        margin: "50px auto",
+        margin: "10px auto",
         padding: "20px",
         background: "#ffffff",
         boxShadow: "0px 4px 12px rgba(0,0,0,0.1)",

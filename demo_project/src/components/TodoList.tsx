@@ -6,13 +6,13 @@ interface Todo {
   done: boolean;
 }
 
-interface Props {
+interface Prop {
   todo: Todo;
   toggleTodo: (id: number) => void;
   deleteTodo: (id: number) => void;
 }
 
-const TodoItem: React.FC<Props> = ({ todo, toggleTodo, deleteTodo }) => {
+const TodoItem: React.FC<Prop> = ({ todo, toggleTodo, deleteTodo }) => {
   return (
     <li
       style={{

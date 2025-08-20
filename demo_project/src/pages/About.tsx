@@ -1,3 +1,9 @@
+import Password from "../components/Password";
+
 export default function About() {
-  return <h1>ℹ️ About Us Page</h1>;
+  return (
+    <h1>
+      <Password />
+    </h1>
+  );
 }

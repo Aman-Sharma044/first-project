@@ -1,21 +1,42 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Homes";
-import About from "./pages/About";
+import React from "react";
+import { useTheme } from "./context/useTheme";
 
-export default function App() {
+const App: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
-    <BrowserRouter>
-      {/* Navbar */}
-      <nav style={{ display: "flex", gap: "1rem", marginBottom: "21px" }}>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-      </nav>
-
-      {/* Routes */}
-      <Routes>
-        <Route index path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </BrowserRouter>
+    <div
+      style={{
+        height: "100vh",
+        backgroundColor: theme === "light" ? "#ffffff" : "#222222",
+        color: theme === "light" ? "#000000" : "#ffffff",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        transition: "all 0.3s ease",
+      }}
+    >
+      <h1>React Context API with TypeScript</h1>
+      <p>
+        Current Theme: <b>{theme}</b>
+      </p>
+      <button
+        onClick={toggleTheme}
+        style={{
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          background: theme === "light" ? "#333" : "#ddd",
+          color: theme === "light" ? "#fff" : "#000",
+          marginTop: "10px",
+        }}
+      >
+        Toggle Theme
+      </button>
+    </div>
   );
-}
+};
+
+export default App;
