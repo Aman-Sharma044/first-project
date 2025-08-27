@@ -1,12 +1,20 @@
-import React from "react";
+// import React from "react";
 import ReactDOM from "react-dom/client";
+// import Practice from "./components/Practice";
+// import App from "./App";
+// import { ThemeProvider } from "./context/ThemeProvider";
+// import Calculation from "./Calculation";
 import App from "./App";
-import { ThemeProvider } from "./context/ThemeProvider";
-
+import Timer from "./components/Timer";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>
+  <>
+    {/* <ThemeProvider> */}
+    {/* <App /> */}
+    {/* <Calculation initialCount={0} initialOther={false} /> */}
+    {/* </ThemeProvider> */}
+    {/* <Practice /> */}
+    <App />
+    <br />
+    <Timer />
+  </>
 );
