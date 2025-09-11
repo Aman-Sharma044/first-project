@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Login from "./Pages/Login";
-import Dashboard from "./Pages/Dashboard";
-import Appointments from "./Pages/Appointment";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Appointments from "./pages/Appointments";
 import MainLayout from "./components/MainLayout";
 
 export default function App() {
