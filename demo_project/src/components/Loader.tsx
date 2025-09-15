@@ -1,6 +1,6 @@
 import { Spin } from "antd";
 
-export default function Loader() {
+const Loader: React.FC = () => {
   return (
     <div
       style={{
@@ -13,4 +13,5 @@ export default function Loader() {
       <Spin size="large" />
     </div>
   );
-}
+};
+export default Loader;

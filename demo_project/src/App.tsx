@@ -1,48 +1,23 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import Login from "./Pages/Login";
-import Dashboard from "./Pages/Dashboard";
-import Appointments from "./Pages/Appointment";
-import MainLayout from "./components/MainLayout";
+import type { ReactElement } from "react";
+import Login from "./mynxDashboard.tsx/Login";
+import Dashboard from "./mynxDashboard.tsx/Dashboard";
+
+function PrivateRoute({ children }: { children: ReactElement }) {
+  const token = localStorage.getItem("token");
+  return token ? children : <Navigate to="/" replace />;
+}
 
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  // fake auth check
-  useEffect(() => {
-    const auth = sessionStorage.getItem("auth");
-    if (auth === "true") setIsAuthenticated(true);
-    setLoading(false);
-  }, []);
-
-  if (loading) return null;
-
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
       <Route
-        path="/"
+        path="/dashboard"
         element={
-          isAuthenticated ? (
-            <MainLayout>
-              <Dashboard />
-            </MainLayout>
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
-      />
-      <Route
-        path="/appointments"
-        element={
-          isAuthenticated ? (
-            <MainLayout>
-              <Appointments />
-            </MainLayout>
-          ) : (
-            <Navigate to="/login" />
-          )
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
         }
       />
     </Routes>
