@@ -1,25 +1,23 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import type { ReactElement } from "react";
 import Login from "./mynxDashboard.tsx/Login";
 import Dashboard from "./mynxDashboard.tsx/Dashboard";
+import ProtectedRoute from "./mynxDashboard.tsx/Router";
 
-function PrivateRoute({ children }: { children: ReactElement }) {
-  const token = localStorage.getItem("token");
-  return token ? children : <Navigate to="/" replace />;
-}
-
-export default function App() {
+function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
       <Route
         path="/dashboard"
         element={
-          <PrivateRoute>
+          <ProtectedRoute>
             <Dashboard />
-          </PrivateRoute>
+          </ProtectedRoute>
         }
       />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }
+
+export default App;
