@@ -1,22 +1,24 @@
 import { useState } from "react";
 import { Card, Form, Input, Button, Typography, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import api from "./api";
 
 const { Title } = Typography;
 
-function Login() {
-  const [loading, setLoading] = useState(false);
+const Login = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const onFinish = async (values: { username: string; password: string }) => {
     setLoading(true);
     try {
-      const res = await fetch(import.meta.env.VITE_API_URL, {
+      const res = await fetch(import.meta.env.VITE_API_URL + "/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
       const data = await res.json();
+      console.log("this is my api", api);
 
       if (data.success) {
         sessionStorage.setItem("token", data.token);
@@ -73,6 +75,6 @@ function Login() {
       </Card>
     </div>
   );
-}
+};
 
 export default Login;
